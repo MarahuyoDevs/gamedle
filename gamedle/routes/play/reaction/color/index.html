@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% block content %}
+<article
+  id="game_background"
+  class="h-screen hidden justify-center items-center pt-20 px-16"
+>
+  <div class="flex flex-col gap-5">
+    <h1 id="end_game">TOTAL MS:</h1>
+    <button class="btn btn-primary" id="on_start">Press to start</button>
+    <button class="btn btn-primary" id="on_restart">Restart the game</button>
+    <h1 id="start" class="text-4xl font-bold">
+      PRESS SPACE IF YOU SEE THE GREEN BACKGROUND
+    </h1>
+    <h1 id="failed">Too fast</h1>
+    <h1 id="game">PRESS NOW</h1>
+  </div>
+</article>
+<article id="loading" class="h-screen hidden justify-center items-center">
+  <h1>Loading Python Environment</h1>
+</article>
+<script>
+  document.getElementById("game_background").style.display = "none";
+  document.getElementById("loading").style.display = "flex";
+</script>
+{% endblock content %}

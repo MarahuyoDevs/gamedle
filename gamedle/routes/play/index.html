@@ -1,0 +1,58 @@
+{% extends "layout.html" %} {% block content %}
+
+<article class="h-screen flex justify-center items-center pt-20">
+  <aside class="h-full w-1/4 p-4 space-y-4 flex justify-center">
+    <nav class="menu p-2 rounded-md">
+      <section class="menu-section">
+        <span class="menu-title">Category</span>
+        <ul class="menu-items">
+          <a id="sidebar-btn" href="/play/?category=reaction" class="menu-item"
+            >Reaction</a
+          >
+          <a id="sidebar-btn" href="/play/?category=casino" class="menu-item"
+            >Casino</a
+          >
+          <a id="sidebar-btn" href="/play/?category=casual" class="menu-item"
+            >Casual</a
+          >
+        </ul>
+      </section>
+    </nav>
+  </aside>
+  <section class="h-full w-3/4 p-4 flex flex-col gap-5 overflow-y-auto">
+    {% for category in games %}
+    <div class="space-y-5">
+      <h1 class="text-xl font-bold border-b">{{category}}</h1>
+      {% if request.query_params.get('category') or
+      request.query_params.get('category') == 'all' %} {% for game in
+      games[category] %} {% if request.query_params.get('category').lower() ==
+      category.lower() or request.query_params.get('category') == 'all' %}
+      <div class="card max-w-full">
+        <div class="card-body">
+          <h2 class="card-header">{{ game['title'] }}</h2>
+          <p class="text-content2">{{ game['description'] }}</p>
+          <div class="card-footer">
+            <a class="btn btn-primary" href="{{ game['href'] }}">Play now</a>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% endfor %} {% endif %}
+    </div>
+    {% endfor %}
+  </section>
+</article>
+
+<script>
+  // Get all elements with id "sidebar-btn"
+  const sidebarBtns = document.querySelectorAll("#sidebar-btn");
+
+  // Add onclick event listener to each element
+  sidebarBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // Refresh the page
+      window.location.href = btn.href;
+    });
+  });
+</script>
+
+{%endblock%}

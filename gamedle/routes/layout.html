@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    {% if metadatas %} {% for key,val in metadata.items() %}
+    <meta name="{{ key }}" content="{{ val }}" />
+    {% endfor %} {% endif %}
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/static/out.css" />
+  </head>
+  <body class="bg-[#27272A]">
+    <header class="fixed w-full px-16">
+      <nav class="p-4 flex justify-between items-center">
+        <span class="text-xl font-bold">POKEY / GAMEDLE</span>
+        <ul class="flex gap-5">
+          <li>
+            <a class="btn btn-primary" href="/"> Home </a>
+          </li>
+          <li>
+            <a href="/profile">
+              <div class="avatar">
+                <img
+                  src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                  alt="avatar"
+                />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="space-y-5 pt-18">{% block content %} {% endblock %}</div>
+  </body>
+  <script src="/static/pyodide/pyodide.js"></script>
+  <script>
+    async function main() {
+      let pyodide = await loadPyodide();
+      // Pyodide is now ready to use...
+      pyodide.runPython(atob(`{{ script }}`));
+    }
+    main();
+  </script>
+</html>
